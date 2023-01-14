@@ -1,0 +1,29 @@
+notice_html = render_to_string('MY_app/email-template.html')
+subject = 'Your New Design Confirmation'
+from_email = settings.EMAIL_HOST_USER
+recipient_list = [request.POST.get('email')]
+message = "A curated message based on the design the customer purchased."
+send_mail(
+    subject=subject, message=message,
+    recipient_list=recipient_list,
+    from_email=from_email, fail_silently=False
+)
+
+
+
+message = "A curated message based on the design the customer purchased."
+# Add the message to render_to_string to use it in template
+notice_html = render_to_string(
+    'MY_app/email-template.html',
+    { "message": message }
+)
+...
+
+send_mail(
+    subject=subject, 
+    message=message, 
+    recipient_list=recipient_list, 
+    from_email=from_email, 
+    fail_silently=False,
+    html_message=notice_html ⬅️
+)
